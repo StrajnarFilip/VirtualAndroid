@@ -5,7 +5,18 @@ Easy creation of android virtual device.
 Invoke-Expression (Invoke-WebRequest -Uri "https://raw.githubusercontent.com/StrajnarFilip/VirtualAndroid/master/Create.ps1")
 ```
 
-# How to use (for people with poor knowledge about computers)
+# How to use
+Press and **hold down** `Windows` key and press `X` key, then **release** `Windows` key and press `I` (this should open powershell, which is a blue prompt).
+![image](https://user-images.githubusercontent.com/46705237/153288060-96da9e48-4b85-4d94-b6e9-e26cdeecc79c.png)
+
+Copy the next line into the prompt and press enter:
+`Invoke-Expression (Invoke-WebRequest -Uri "https://raw.githubusercontent.com/StrajnarFilip/VirtualAndroid/master/Create.ps1")`
+![image](https://user-images.githubusercontent.com/46705237/153288246-7d04a239-e50e-433e-8262-cb872b9dd883.png)
+
+
+# Alternative way
+
+## How to use (for people with poor knowledge about computers)
 
 - Press and hold `Windows` key and press `R` key
 - In the prompt, type `powershell` and press `Enter` key (or press `OK` button)
