@@ -14,6 +14,7 @@
    limitations under the License.
 #>
 
+$ProgressPreference = 'SilentlyContinue'
 # Download official CLI tools from google
 Invoke-WebRequest -OutFile "cli_tools.zip" -Uri "https://dl.google.com/android/repository/commandlinetools-win-8092744_latest.zip"
 # Extract .zip archive
@@ -24,8 +25,8 @@ Set-Location .\android
 New-Item -Type "directory" -Path .\platforms
 Set-Location .\cmdline-tools
 Rename-Item -Path .\cmdline-tools -NewName "latest"
-.\latest\bin\sdkmanager.bat --install "build-tools;32.0.0"
-.\latest\bin\sdkmanager.bat --install "system-images;android-32;google_apis_playstore;x86_64"
+'y', 'y', 'y', 'y' | .\latest\bin\sdkmanager.bat --install "build-tools;32.0.0"
+'y', 'y', 'y', 'y' | .\latest\bin\sdkmanager.bat --install "system-images;android-32;google_apis_playstore;x86_64"
 .\latest\bin\avdmanager.bat create avd --name "Machine1" --device "28" --package "system-images;android-32;google_apis_playstore;x86_64"
 
 # Shortcut creation
