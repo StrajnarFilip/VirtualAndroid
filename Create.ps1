@@ -30,9 +30,10 @@ Rename-Item -Path .\cmdline-tools -NewName "latest"
 
 # Shortcut creation
 Set-Location ..\emulator
-Set-Content -Path "Start.ps1" -Value "Set-Location $(Get-Location) ; .\emulator.exe -avd Machine1"
+Set-Content -Path "Start.bat" -Value "cd '$(Get-Location)'
+.\emulator.exe -avd Machine1"
 
 # Copy shortcut to Desktop
-Copy-Item -Path "Start.ps1" -Destination "~\Desktop"
+Copy-Item -Path "Start.bat" -Destination "~\Desktop"
 
 # Done
