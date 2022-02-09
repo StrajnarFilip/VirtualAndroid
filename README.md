@@ -7,6 +7,7 @@ Invoke-Expression (Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Str
 
 # How to use
 Press and **hold down** `Windows` key and press `X` key, then **release** `Windows` key and press `I` (this should open powershell, which is a blue prompt).
+
 ![image](https://user-images.githubusercontent.com/46705237/153288060-96da9e48-4b85-4d94-b6e9-e26cdeecc79c.png)
 
 Copy the next line into the prompt and press enter:
