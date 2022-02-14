@@ -41,6 +41,8 @@ Invoke-WebRequest -OutFile $cli_tools -Uri "https://dl.google.com/android/reposi
 Expand-Archive -Path $cli_tools -DestinationPath ".\android\cmdline-tools"
 # Set environmental variable
 $env:ANDROID_SDK_ROOT = "$(Get-Location)\android"
+[Environment]::SetEnvironmentVariable("ANDROID_SDK_ROOT", $env:ANDROID_SDK_ROOT, [System.EnvironmentVariableTarget]::User)
+
 Set-Location .\android
 New-Item -Type "directory" -Path .\platforms
 Set-Location .\cmdline-tools
