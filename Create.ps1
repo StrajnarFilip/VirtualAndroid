@@ -23,7 +23,7 @@ Invoke-WebRequest -OutFile $java_zip -Uri "https://github.com/adoptium/temurin8-
 
 # Unzip / Extract
 Expand-Archive -Path $java_zip -DestinationPath "java8"
-$jdk_full_path = "$(Get-Location)\java8\${$jdk_version_name}"
+$jdk_full_path = "$(Get-Location)\java8\${jdk_version_name}"
 
 # Set java home
 [Environment]::SetEnvironmentVariable("JAVA_HOME", "${jdk_full_path}", [System.EnvironmentVariableTarget]::User)
