@@ -26,13 +26,11 @@ Expand-Archive -Path $java_zip -DestinationPath "java8"
 $jdk_full_path = "$(Get-Location)\java8\${$jdk_version_name}"
 
 # Set java home
-[Environment]::SetEnvironmentVariable
-     ("JAVA_HOME", "${jdk_full_path}", [System.EnvironmentVariableTarget]::User)
+[Environment]::SetEnvironmentVariable("JAVA_HOME", "${jdk_full_path}", [System.EnvironmentVariableTarget]::User)
 
 # Set path to include java
 $old_user_path = [Environment]::GetEnvironmentVariable("Path", [System.EnvironmentVariableTarget]::User)
-[Environment]::SetEnvironmentVariable
-     ("Path", "${old_user_path};${jdk_full_path}\bin", [System.EnvironmentVariableTarget]::User)
+[Environment]::SetEnvironmentVariable("Path", "${old_user_path};${jdk_full_path}\bin", [System.EnvironmentVariableTarget]::User)
 
 # Download official CLI tools from google
 $cli_tools = "cli_tools.zip"
