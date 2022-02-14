@@ -13,6 +13,8 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 #>
+# Speed up download:
+$ProgressPreference = 'SilentlyContinue'
 
 # Download Java 8
 $java_zip = "java8.zip"
@@ -32,7 +34,6 @@ $old_user_path = [Environment]::GetEnvironmentVariable("Path", [System.Environme
 [Environment]::SetEnvironmentVariable
      ("Path", "${old_user_path};${jdk_full_path}\bin", [System.EnvironmentVariableTarget]::User)
 
-$ProgressPreference = 'SilentlyContinue'
 # Download official CLI tools from google
 $cli_tools = "cli_tools.zip"
 Invoke-WebRequest -OutFile $cli_tools -Uri "https://dl.google.com/android/repository/commandlinetools-win-8092744_latest.zip"
