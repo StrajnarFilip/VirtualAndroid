@@ -1,1 +1,0 @@
-powershell -Command "Invoke-Expression (Invoke-WebRequest -UseBasicParsing -Uri 'https://raw.githubusercontent.com/StrajnarFilip/VirtualAndroid/master/Create.ps1')"

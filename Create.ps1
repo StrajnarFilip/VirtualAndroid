@@ -14,13 +14,32 @@
    limitations under the License.
 #>
 
+# Download Java 8
+$java_zip = "java8.zip"
+$jdk_version_name = "jdk8u322-b06"
+Invoke-WebRequest -OutFile $java_zip -Uri "https://github.com/adoptium/temurin8-binaries/releases/download/${jdk_version_name}/OpenJDK8U-jdk_x64_windows_hotspot_8u322b06.zip"
+
+# Unzip / Extract
+Expand-Archive -Path $java_zip -DestinationPath "java8"
+$jdk_full_path = "$(Get-Location)\java8\${$jdk_version_name}"
+
+# Set java home
+[Environment]::SetEnvironmentVariable
+     ("JAVA_HOME", "${jdk_full_path}", [System.EnvironmentVariableTarget]::User)
+
+# Set path to include java
+$old_user_path = [Environment]::GetEnvironmentVariable("Path", [System.EnvironmentVariableTarget]::User)
+[Environment]::SetEnvironmentVariable
+     ("Path", "${old_user_path};${jdk_full_path}\bin", [System.EnvironmentVariableTarget]::User)
+
 $ProgressPreference = 'SilentlyContinue'
 # Download official CLI tools from google
-Invoke-WebRequest -OutFile "cli_tools.zip" -Uri "https://dl.google.com/android/repository/commandlinetools-win-8092744_latest.zip"
+$cli_tools = "cli_tools.zip"
+Invoke-WebRequest -OutFile $cli_tools -Uri "https://dl.google.com/android/repository/commandlinetools-win-8092744_latest.zip"
 # Extract .zip archive
-Expand-Archive -Path ".\cli_tools.zip" -DestinationPath ".\android\cmdline-tools"
+Expand-Archive -Path $cli_tools -DestinationPath ".\android\cmdline-tools"
 # Set environmental variable
-$env:ANDROID_SDK_ROOT="$(Get-Location)\android"
+$env:ANDROID_SDK_ROOT = "$(Get-Location)\android"
 Set-Location .\android
 New-Item -Type "directory" -Path .\platforms
 Set-Location .\cmdline-tools
