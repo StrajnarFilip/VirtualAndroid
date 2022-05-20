@@ -5,6 +5,17 @@ Easy creation of android virtual device.
 Invoke-Expression (Invoke-WebRequest -UseBasicParsing -Uri "https://raw.githubusercontent.com/StrajnarFilip/VirtualAndroid/master/Create.ps1")
 ```
 
+# To install Java:
+If you don't have Java installed, you can use the following to install it with Scoop.
+
+```ps1
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+Invoke-WebRequest -UseBasicParsing get.scoop.sh | Invoke-Expression
+scoop install git
+scoop bucket add Java
+scoop install openjdk11
+```
+
 # How to use
 Press and **hold down** `Windows` key and press `X` key, then **release** `Windows` key and press `I` (this should open powershell, which is a blue prompt).
 
