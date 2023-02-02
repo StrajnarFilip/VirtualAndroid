@@ -31,13 +31,13 @@ Set-Location .\android-container
 
 # Set required environmental variables
 $env:ANDROIDCONTAINER= $(Get-Location)
-[System.Environment]::SetEnvironmentVariable("ANDROIDCONTAINER", $env:ANDROID_HOME, [System.EnvironmentVariableTarget]::User)
+[System.Environment]::SetEnvironmentVariable("ANDROIDCONTAINER", $env:ANDROIDCONTAINER, [System.EnvironmentVariableTarget]::User)
 $env:ANDROID_HOME = "$env:ANDROIDCONTAINER\.android"
 $env:ANDROID_SDK_ROOT = "$env:ANDROIDCONTAINER\.android"
 $env:ANDROID_SDK_HOME = "$env:ANDROIDCONTAINER"
 $env:ANDROID_USER_HOME = "$env:ANDROIDCONTAINER\.android"
-$env:ANDROID_EMULATOR_HOME = $env:ANDROID_USER_HOME
-$env:ANDROID_AVD_HOME = "${env:ANDROID_EMULATOR_HOME}\avd\"
+$env:ANDROID_EMULATOR_HOME = "$env:ANDROIDCONTAINER\.android"
+$env:ANDROID_AVD_HOME = "$env:ANDROIDCONTAINER\avd\"
 
 #[System.Environment]::SetEnvironmentVariable("ANDROID_HOME", $env:ANDROID_HOME, [System.EnvironmentVariableTarget]::User)
 #[System.Environment]::SetEnvironmentVariable("ANDROID_SDK_ROOT", $env:ANDROID_SDK_ROOT, [System.EnvironmentVariableTarget]::User)
@@ -48,7 +48,7 @@ $env:ANDROID_AVD_HOME = "${env:ANDROID_EMULATOR_HOME}\avd\"
 
 # Download and extract CLI tools
 $cli_tools = "cli_tools.zip"
-Invoke-WebRequest -OutFile $cli_tools -Uri "https://dl.google.com/android/repository/commandlinetools-win-8092744_latest.zip"
+Invoke-WebRequest -OutFile $cli_tools -Uri "https://dl.google.com/android/repository/commandlinetools-win-9477386_latest.zip"
 Expand-Archive -Path $cli_tools -DestinationPath ".\.android\cmdline-tools"
 Remove-Item $cli_tools
 
@@ -77,16 +77,16 @@ Rename-Item -Path .\cmdline-tools -NewName "latest"
 
 # Shortcut creation
 Set-Location ..\emulator
-Set-Content -Path "Start.bat" -Value '
+Set-Content -Path "Start.ps1" -Value '
 $env:ANDROID_HOME = "$env:ANDROIDCONTAINER\.android"
 $env:ANDROID_SDK_ROOT = "$env:ANDROIDCONTAINER\.android"
 $env:ANDROID_SDK_HOME = "$env:ANDROIDCONTAINER"
 $env:ANDROID_USER_HOME = "$env:ANDROIDCONTAINER\.android"
-$env:ANDROID_EMULATOR_HOME = $env:ANDROID_USER_HOME
-$env:ANDROID_AVD_HOME = "${env:ANDROID_EMULATOR_HOME}\avd\"
-powershell -Command "& '$(Get-Location)\emulator.exe' -avd Machine1'
+$env:ANDROID_EMULATOR_HOME = "$env:ANDROIDCONTAINER\.android"
+$env:ANDROID_AVD_HOME = "$env:ANDROIDCONTAINER\avd\"
+emulator.exe -avd Machine1'
 
 # Copy shortcut to Desktop
-Copy-Item -Path "Start.bat" -Destination "~\Desktop"
+Copy-Item -Path "Start.ps1" -Destination "~\Desktop"
 
 # Done
