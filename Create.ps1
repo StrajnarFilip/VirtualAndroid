@@ -30,19 +30,21 @@ New-Item -ItemType "directory" -Name "android-container"
 Set-Location .\android-container
 
 # Set required environmental variables
-$env:ANDROID_HOME = "$(Get-Location)\.android"
-$env:ANDROID_SDK_ROOT = "$(Get-Location)\.android"
-$env:ANDROID_SDK_HOME = "$(Get-Location)"
-$env:ANDROID_USER_HOME = "$(Get-Location)\.android"
+$env:ANDROIDCONTAINER= $(Get-Location)
+[System.Environment]::SetEnvironmentVariable("ANDROIDCONTAINER", $env:ANDROID_HOME, [System.EnvironmentVariableTarget]::User)
+$env:ANDROID_HOME = "$env:ANDROIDCONTAINER\.android"
+$env:ANDROID_SDK_ROOT = "$env:ANDROIDCONTAINER\.android"
+$env:ANDROID_SDK_HOME = "$env:ANDROIDCONTAINER"
+$env:ANDROID_USER_HOME = "$env:ANDROIDCONTAINER\.android"
 $env:ANDROID_EMULATOR_HOME = $env:ANDROID_USER_HOME
 $env:ANDROID_AVD_HOME = "${env:ANDROID_EMULATOR_HOME}\avd\"
 
-[System.Environment]::SetEnvironmentVariable("ANDROID_HOME", $env:ANDROID_HOME, [System.EnvironmentVariableTarget]::User)
-[System.Environment]::SetEnvironmentVariable("ANDROID_SDK_ROOT", $env:ANDROID_SDK_ROOT, [System.EnvironmentVariableTarget]::User)
-[System.Environment]::SetEnvironmentVariable("ANDROID_SDK_HOME", $env:ANDROID_SDK_HOME, [System.EnvironmentVariableTarget]::User)
-[System.Environment]::SetEnvironmentVariable("ANDROID_USER_HOME", $env:ANDROID_USER_HOME, [System.EnvironmentVariableTarget]::User)
-[System.Environment]::SetEnvironmentVariable("ANDROID_EMULATOR_HOME", $env:ANDROID_EMULATOR_HOME, [System.EnvironmentVariableTarget]::User)
-[System.Environment]::SetEnvironmentVariable("ANDROID_AVD_HOME", $env:ANDROID_AVD_HOME, [System.EnvironmentVariableTarget]::User)
+#[System.Environment]::SetEnvironmentVariable("ANDROID_HOME", $env:ANDROID_HOME, [System.EnvironmentVariableTarget]::User)
+#[System.Environment]::SetEnvironmentVariable("ANDROID_SDK_ROOT", $env:ANDROID_SDK_ROOT, [System.EnvironmentVariableTarget]::User)
+#[System.Environment]::SetEnvironmentVariable("ANDROID_SDK_HOME", $env:ANDROID_SDK_HOME, [System.EnvironmentVariableTarget]::User)
+#[System.Environment]::SetEnvironmentVariable("ANDROID_USER_HOME", $env:ANDROID_USER_HOME, [System.EnvironmentVariableTarget]::User)
+#[System.Environment]::SetEnvironmentVariable("ANDROID_EMULATOR_HOME", $env:ANDROID_EMULATOR_HOME, [System.EnvironmentVariableTarget]::User)
+#[System.Environment]::SetEnvironmentVariable("ANDROID_AVD_HOME", $env:ANDROID_AVD_HOME, [System.EnvironmentVariableTarget]::User)
 
 # Download and extract CLI tools
 $cli_tools = "cli_tools.zip"
@@ -75,7 +77,14 @@ Rename-Item -Path .\cmdline-tools -NewName "latest"
 
 # Shortcut creation
 Set-Location ..\emulator
-Set-Content -Path "Start.bat" -Value "powershell -Command `"& '$(Get-Location)\emulator.exe' -avd Machine1`""
+Set-Content -Path "Start.bat" -Value '
+$env:ANDROID_HOME = "$env:ANDROIDCONTAINER\.android"
+$env:ANDROID_SDK_ROOT = "$env:ANDROIDCONTAINER\.android"
+$env:ANDROID_SDK_HOME = "$env:ANDROIDCONTAINER"
+$env:ANDROID_USER_HOME = "$env:ANDROIDCONTAINER\.android"
+$env:ANDROID_EMULATOR_HOME = $env:ANDROID_USER_HOME
+$env:ANDROID_AVD_HOME = "${env:ANDROID_EMULATOR_HOME}\avd\"
+powershell -Command "& '$(Get-Location)\emulator.exe' -avd Machine1'
 
 # Copy shortcut to Desktop
 Copy-Item -Path "Start.bat" -Destination "~\Desktop"
